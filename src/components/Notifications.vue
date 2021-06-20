@@ -1,5 +1,5 @@
 <template>
- <v-snackbars :messages.sync="messages" color="red" bottom right :timeout="1000"/>
+ <v-snackbars :messages.sync="messages" color="green" bottom right :timeout="3000"/>
 </template>
 
 <script>
