@@ -35,12 +35,17 @@ export default new Vuex.Store({
       console.log(allAccounts)
     },
     async claimTokens({commit}, payload) {
+      commit('SAVE_STATUS_MESSAGE', "NO UNUSED VARS SHITHEAD")
       console.log(payload)
     },
     async transferTokens({commit}, payload){
+      commit('SAVE_STATUS_MESSAGE', "NO UNUSED VARS SHITHEAD")
+
       console.log(payload)
     },
     async swapTokens({commit}, payload){
+      commit('SAVE_STATUS_MESSAGE', "NO UNUSED VARS SHITHEAD")
+
       console.log(payload)
     }
   },
