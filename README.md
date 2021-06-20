@@ -1,4 +1,15 @@
-# vue-test
+<div align="center">
+  <h1><code>blot-dapp</code></h1>
+  <p>
+    <strong>Implementation DApp on Protocol</strong>
+  </p>
+</div>
+
+## Release
+
+```shell
+npm run release
+```
 
 ## Project setup
 ```
