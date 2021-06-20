@@ -38,10 +38,10 @@ export default new Vuex.Store({
       console.log(payload)
     },
     async transferTokens({commit}, payload){
-
+      console.log(payload)
     },
     async swapTokens({commit}, payload){
-
+      console.log(payload)
     }
   },
 })
