@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "release": "git tag \"v$(TZ=UTC date +'%y%m%d.%H%M')\" && git push origin $(git describe --tags --always)",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@polkadot/extension-dapp": "^0.38.6",
-    "blot.js": "file:../blot.js",
+    "blot.js": "github:hackadot/blot.js",
     "core-js": "^3.6.5",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
@@ -20,8 +21,8 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-eslint": "^3.1.1",
+    "@vue/cli-service": "^3.12.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
