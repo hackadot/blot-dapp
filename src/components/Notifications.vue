@@ -1,5 +1,5 @@
 <template>
- <v-snackbars :messages.sync="getMessages" color="red" bottom right></v-snackbars>
+ <v-snackbars :messages.sync="getStatusMessages" color="red" bottom right/>
 </template>
 
 <script>
@@ -14,8 +14,7 @@ export default {
     },
     components:{VSnackbars},
     computed: {
-        ...mapGetters['getMessages']
+        ...mapGetters(['getStatusMessages'])
     }
-
 }
 </script>

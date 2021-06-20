@@ -26,17 +26,19 @@
         </v-list-item>
 
         <v-card-actions class="d-flex justify-center  mb-5">
-            <v-btn text color="red accent-4" :disabled="getIsConnected" elevation="2" @click="swapTokens">
+            <v-btn text color="red accent-4" :disabled="!getIsConnected" elevation="2" @click="swapTokens">
                 Swap tokens
             </v-btn>
         </v-card-actions>
     </v-card>
-
+        <Notifications/>
 </v-container>
 </template>
 
 <script>
-import { mapGetters
+import Notifications from './Notifications';
+
+import { mapGetters, mapActions
 } from "vuex";
 export default {
     name: "AppBody",
@@ -46,10 +48,12 @@ export default {
             KEK: 0
         };
     },
+    components:{ Notifications},
     computed: {
-        ...mapGetters(['getBalance', 'getIsConnected']),
+        ...mapGetters(['getBalance', 'getIsConnected', 'getWalletAddress']),
     },
     methods: {
+        ...mapActions(['transfer']),
         onInput(amount, tokenType) {
             if(amount < 0 || isNaN(amount)){
                 switch (tokenType) {
@@ -59,7 +63,7 @@ export default {
             }
         },
         swapTokens(){
-            console.log(this.DOT, this.KEK)
+            this.transfer({addressFrom: this.getWalletAddress, amount: this.DOT})
         }
     },
     async mounted() {

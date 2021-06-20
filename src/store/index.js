@@ -13,7 +13,7 @@ export default new Vuex.Store({
     networkName: 'Local',
     walletAddress: 'A332Nas252152352',
     balance: 0,
-    messages: [],
+    notificationMessages: [],
     provider: null,
     blot: null,
   },
@@ -22,9 +22,10 @@ export default new Vuex.Store({
     getNetworkName: state => state.networkName,
     getBalance: state => state.balance,
     getWalletAddress: state => state.walletAddress,
-    getMessages: state => state.messages,
+    getStatusMessages: state => state.notificationMessages,
     getProvider: state => state.provider,
-    getBlot: state => state.blot
+    getBlot: state => state.blot,
+    getAccounts: state => state.allAccounts
   },
   mutations: {
     STORE_ALL_ACCOUNTS(state, allAccounts) {
@@ -37,13 +38,20 @@ export default new Vuex.Store({
       state.balance = balance;
     },
     PUSH_NOTIFICATION_MESSAGE(state, message) {
-      state.messages.push(message);
+      state.notificationMessages.push(message);
+      console.log(state.notificationMessages)
     },
     SET_PROVIDER(state, provider) {
       state.provider = provider;
     },
     SET_BLOT(state, blot) {
       state.blot = blot;
+    },
+    SET_CONNECTION_STATUS(state, status) {
+      state.isConnected = status;
+    },
+    SET_ACCOUNT_ADDRESS(state, address){
+      state.walletAddress = address
     }
   },
   actions: {
@@ -58,12 +66,13 @@ export default new Vuex.Store({
         console.warn(err)
       }
       commit('SET_BLOT', blot);
+      commit('SET_CONNECTION_STATUS', true);
       const allAccounts = await blot.getAccounts();
+      commit('PUSH_NOTIFICATION_MESSAGE', `Account ${allAccounts[0].address} connected.`)
+
+      commit('SET_ACCOUNT_ADDRESS',allAccounts[0].address)
       commit('STORE_ALL_ACCOUNTS', allAccounts)
       console.log(allAccounts)
-
-
-
       dispatch('getBalance', allAccounts[0].address);
     },
     async claimTokens({ commit }, payload) {
@@ -85,12 +94,12 @@ export default new Vuex.Store({
       commit('SET_BALANCE', balance)
       console.log('Balance:', balance, 'Payload:', payload)
     },
-    async transfer({ commit, getters }, payload) {
-      const sender = new Account(payload);
+    async transfer({ commit, getters }, {addressFrom, tokenAmount}) {
+      const sender = new Account(addressFrom);
       console.log(sender.getAddress())
       const blot = getters.getBlot;
       const allAccounts = getters.getAccounts;
-      const status = await blot.transfer(0, allAccounts[2].address, 1, ({ events = [], status }) => {
+      const status = await blot.transfer(0, allAccounts[2].address, tokenAmount, ({ events = [], status }) => {
         console.log('Transaction status:', status.type)
 
         if (status.isInBlock) {

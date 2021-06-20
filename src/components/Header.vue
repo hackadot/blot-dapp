@@ -33,7 +33,6 @@ export default {
         ...mapActions(['initWeb3']),
 
     },
-
     computed: {
         ...mapGetters(['getBalance', 'getIsConnected', 'getNetworkName', 'getWalletAddress'])
     }
