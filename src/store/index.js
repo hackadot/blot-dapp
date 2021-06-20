@@ -10,10 +10,15 @@ export default new Vuex.Store({
     allAccounts: [],
     statesMessage:'',
     isConnected: false,
+    networkName: 'Local',
+    walletAddress: 'A332Nas252152352',
     balance: 0,
 },
 getters: {
   getIsConnected: state => state.isConnected,
+  getNetworkName: state => state.networkName,
+  getBalance: state => state.balance,
+  getWalletAddress: state => state.walletAddress
 },
   mutations: {
     STORE_ALL_ACCOUNTS(state, allAccounts){
