@@ -38,7 +38,7 @@ export default new Vuex.Store({
       state.balance = balance;
     },
     PUSH_NOTIFICATION_MESSAGE(state, message) {
-      state.notificationMessages.push(message);
+      state.notificationMessages = message;
       console.log(state.notificationMessages)
     },
     SET_PROVIDER(state, provider) {
@@ -68,8 +68,12 @@ export default new Vuex.Store({
       commit('SET_BLOT', blot);
       commit('SET_CONNECTION_STATUS', true);
       const allAccounts = await blot.getAccounts();
-      commit('PUSH_NOTIFICATION_MESSAGE', `Account ${allAccounts[0].address} connected.`)
+      commit('PUSH_NOTIFICATION_MESSAGE', [`Account ${allAccounts[0].address} connected.`])
+      setTimeout(()=>{
 
+      commit('PUSH_NOTIFICATION_MESSAGE', [])
+
+      }, 100);
       commit('SET_ACCOUNT_ADDRESS',allAccounts[0].address)
       commit('STORE_ALL_ACCOUNTS', allAccounts)
       console.log(allAccounts)
@@ -103,14 +107,26 @@ export default new Vuex.Store({
         console.log('Transaction status:', status.type)
 
         if (status.isInBlock) {
-          console.log('Included at block hash', status.asInBlock.toHex())
+          commit('PUSH_NOTIFICATION_MESSAGE', [`Included at block hash ${status.asInBlock.toHex()}`])
           console.log('Events:')
+          setTimeout(()=>{
 
+            commit('PUSH_NOTIFICATION_MESSAGE', [])
+      
+            }, 250);
           events.forEach(({ event: { data, method, section }, phase }) => {
-            console.log('\t', phase.toString(), `: ${section}.${method}`, data.toString())
+            commit('PUSH_NOTIFICATION_MESSAGE', [`${phase.toString()} : ${section}.${method} ${data.toString()}`])
+            
           })
+          setTimeout(()=>{
+
+            commit('PUSH_NOTIFICATION_MESSAGE', [])
+      
+            }, 3000);
         } else if (status.isFinalized) {
-          console.log('Finalized block hash', status.asFinalized.toHex())
+          commit('PUSH_NOTIFICATION_MESSAGE', [`Finalized block hash ${status.asFinalized.toHex()}`])
+
+          console.log()
         }
       })
       console.log('status', status)
