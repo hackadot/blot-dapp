@@ -36,8 +36,7 @@
 </template>
 
 <script>
-import {
-    mapActions, mapGetters
+import { mapGetters
 } from "vuex";
 export default {
     name: "AppBody",
@@ -51,7 +50,6 @@ export default {
         ...mapGetters(['getBalance', 'getIsConnected']),
     },
     methods: {
-        ...mapActions(['initWeb3']),
         onInput(amount, tokenType) {
             if(amount < 0 || isNaN(amount)){
                 switch (tokenType) {
@@ -65,7 +63,6 @@ export default {
         }
     },
     async mounted() {
-        this.initWeb3();
     },
 };
 </script>

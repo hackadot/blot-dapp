@@ -8,7 +8,7 @@
 
     <v-spacer></v-spacer>
     <div v-if="!getIsConnected">
-        <v-btn color="secondary" elevation="2">Connect to a blot </v-btn>
+        <v-btn color="secondary" elevation="2" @click="initWeb3">Connect to a blot </v-btn>
     </div>
     <div v-else class="d-flex">
         <div class="ml-5"> {{getNetworkName}} </div>
@@ -21,7 +21,7 @@
 
 <script>
 import {
-    mapGetters
+    mapGetters, mapActions
 } from 'vuex';
 export default {
     name: 'Header',
@@ -29,6 +29,11 @@ export default {
     data() {
         return {};
     },
+    methods: {
+        ...mapActions(['initWeb3']),
+
+    },
+
     computed: {
         ...mapGetters(['getBalance', 'getIsConnected', 'getNetworkName', 'getWalletAddress'])
     }
