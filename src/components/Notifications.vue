@@ -1,5 +1,5 @@
 <template>
- <v-snackbars :messages.sync="messages" color="red" bottom right/>
+ <v-snackbars :messages.sync="messages" color="red" bottom right :timeout="1000"/>
 </template>
 
 <script>
@@ -14,25 +14,12 @@ export default {
     },
     components:{VSnackbars},
     computed: {
-        getMsg (){
-            return this.messages
-        },
-        // getStatusMessages:{
-        //     get: ()=> {
-        //         return this.$store.getters.getStatusMessages
-        //     },
-        //     set: ()=> {
-        //         this.$store.commit('increment')
-        //     }
 
-
-        // }
         ...mapGetters(['getStatusMessages'])
     },
     mounted(){
         setInterval(()=>{
-            if(this.getStatusMessages.length !== 0) {
-                console.log('test')
+            if(this.getStatusMessages.length !== 0 && this.messages.length === 0) {
                 this.messages.push(this.getStatusMessages[0])
             }
         }, 100)

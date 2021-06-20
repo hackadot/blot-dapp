@@ -12,7 +12,7 @@
     </div>
     <div v-else class="d-flex">
         <div class="ml-5"> {{getNetworkName}} </div>
-        <div class="ml-5"> {{getBalance}} DOT</div>
+        <div class="ml-5"> {{getBalance}} nDOT</div>
         <div class="ml-5" style="max-width: 65px; overflow: hidden; text-overflow: ellipsis;"> {{getWalletAddress}} </div>
     </div>
 

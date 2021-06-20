@@ -11,7 +11,7 @@ export default new Vuex.Store({
     statesMessage: '',
     isConnected: false,
     networkName: 'Local',
-    walletAddress: 'A332Nas252152352',
+    walletAddress: '',
     balance: 0,
     notificationMessages: [],
     provider: null,
@@ -98,7 +98,7 @@ export default new Vuex.Store({
       commit('SET_BALANCE', balance)
       console.log('Balance:', balance, 'Payload:', payload)
     },
-    async transfer({ commit, getters }, {addressFrom, tokenAmount}) {
+    async transfer({ commit, getters, dispatch }, {addressFrom, tokenAmount}) {
       const sender = new Account(addressFrom);
       console.log(sender.getAddress())
       const blot = getters.getBlot;
@@ -107,15 +107,24 @@ export default new Vuex.Store({
         console.log('Transaction status:', status.type)
 
         if (status.isInBlock) {
-          commit('PUSH_NOTIFICATION_MESSAGE', [`Included at block hash ${status.asInBlock.toHex()}`])
-          console.log('Events:')
+          setTimeout(()=>{
+
+            commit('PUSH_NOTIFICATION_MESSAGE', [`Included at block hash ${status.asInBlock.toHex()}`])
+
+      
+            }, 0);
           setTimeout(()=>{
 
             commit('PUSH_NOTIFICATION_MESSAGE', [])
       
-            }, 250);
+            }, 300);
           events.forEach(({ event: { data, method, section }, phase }) => {
-            commit('PUSH_NOTIFICATION_MESSAGE', [`${phase.toString()} : ${section}.${method} ${data.toString()}`])
+            setTimeout(()=>{
+
+              commit('PUSH_NOTIFICATION_MESSAGE', [`${phase.toString()} : ${section}.${method} ${data.toString()}`])
+  
+        
+              }, 0);
             
           })
           setTimeout(()=>{
@@ -128,11 +137,12 @@ export default new Vuex.Store({
 
           console.log()
         }
+        dispatch('getBalance', allAccounts[0].address);
       })
       console.log('status', status)
 
       commit('SAVE_STATUS_MESSAGE', "WIP")
-      console.log(payload, commit)
+      console.log(addressFrom, commit)
     }
   },
 })
