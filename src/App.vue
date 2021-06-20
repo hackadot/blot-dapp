@@ -3,19 +3,19 @@
     <Header />
 
     <v-main>
-        <HelloWorld />
+        <AppBody />
     </v-main>
 </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import AppBody from './components/AppBody';
 import Header from './components/Header'
 export default {
     name: 'App',
 
     components: {
-        HelloWorld,
+        AppBody,
         Header,
     },
 
