@@ -6,17 +6,26 @@ Vue.use(Vuex)
 import { web3Enable, web3Accounts } from 'blot.js'
 
 export default new Vuex.Store({
-  state: {allAccounts: [],
-  statesMessage:''},
+  state: {
+    allAccounts: [],
+    statesMessage:'',
+    isConnected: false,
+    balance: 0,
+},
+getters: {
+  getIsConnected: state => state.isConnected,
+},
   mutations: {
     STORE_ALL_ACCOUNTS(state, allAccounts){
       state.allAccounts = allAccounts;
     },
     SAVE_STATUS_MESSAGE(state, message){
       state.statesMessage = message;
+    },
+    SET_BALANCE(state, balance){
+      state.balance = balance;
     }
   },
-  getters: {},
   actions: {
     async initWeb3({commit}) {
       const extensions = await web3Enable('Hackathon Token');
@@ -35,18 +44,26 @@ export default new Vuex.Store({
       console.log(allAccounts)
     },
     async claimTokens({commit}, payload) {
-      commit('SAVE_STATUS_MESSAGE', "NO UNUSED VARS SHITHEAD")
+      commit('SAVE_STATUS_MESSAGE', "WIP")
       console.log(payload)
     },
     async transferTokens({commit}, payload){
-      commit('SAVE_STATUS_MESSAGE', "NO UNUSED VARS SHITHEAD")
+      commit('SAVE_STATUS_MESSAGE', "WIP")
 
       console.log(payload)
     },
     async swapTokens({commit}, payload){
-      commit('SAVE_STATUS_MESSAGE', "NO UNUSED VARS SHITHEAD")
+      commit('SAVE_STATUS_MESSAGE', "WIP")
 
       console.log(payload)
+    },
+    async getBalance({commit}){
+      commit('SET_BALANCE', 0)
+      console.log('Balance:')
+    },
+    async transfer({commit}, payload){
+      commit('SAVE_STATUS_MESSAGE', "WIP")
+      console.log(payload, commit)
     }
   },
 })

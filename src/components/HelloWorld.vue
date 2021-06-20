@@ -5,7 +5,6 @@
 
         <v-list-item three-line>
             <v-list-item-content>
-
                 <v-list-item-title class="d-flex  flex-row text-h5">
                     <div class="text-overline ma-5">
                         DOT
